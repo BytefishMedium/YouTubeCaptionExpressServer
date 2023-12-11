@@ -1,0 +1,20 @@
+{
+  "name": "nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^20.9.1",
+    "express": "^4.18.2",
+    "axios": "^1.6.2",
+    "he": "^1.2.0",
+    "lodash": "^4.17.21",
+    "node-fetch": "^3.2.6",
+    "striptags": "^3.2.0"
+  }
+}
