@@ -1,5 +1,9 @@
-const express = require('express');
+const fs = require('fs')
+const path = require('path')
+
+const express = require('express')
 const mapcap = require('mapcap')
+const morgan = require('morgan')
 
 const CappedMap = mapcap(Map, 100)
 const map = new CappedMap()
@@ -7,6 +11,13 @@ const map = new CappedMap()
 const getYouTubeCaption = require('./getVideoCaption')
 
 const app = express();
+
+// create a write stream (in append mode)
+var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
+
+// setup the logger
+app.use(morgan('combined', { stream: accessLogStream }))
+
 
 app.get('/*', (req, res) => {
   let videoID = req.query["videoID"]
