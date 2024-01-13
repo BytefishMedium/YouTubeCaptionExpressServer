@@ -3,8 +3,9 @@ const axios = require('axios');
 const { find } = require('lodash');
 const striptags = require('striptags');
 
-// download YouTube Caption
+// download YouTube Caption from video id
 async function getYouTubeCaption(videoID, lang) {
+  // Return the video page, the source links of captions are in the page
   // 返回视频页面，是个HTML文件。字幕就在这个HTML文件中
   const response = await axios.get(`https://www.youtube.com/watch?v=${videoID}`)
   //console.log(response)

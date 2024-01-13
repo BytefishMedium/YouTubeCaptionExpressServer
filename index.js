@@ -18,18 +18,25 @@ var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), {
 // setup the logger
 app.use(morgan('combined', { stream: accessLogStream }))
 
+app.get('log')
 
-app.get('/*', (req, res) => {
+app.get('/*', async (req, res) => {
   let videoID = req.query["videoID"]
   let lang = req.query["lang"]
 
+  if(!videoID) {
+    res.status(400).send("Missing videoID query parameter")
+    return
+  }
+
+  // set cache to imporve performance
   // 设置缓存，提高性能
   if(map.has(videoID)) {
     res.setHeader('Content-Type', 'text/plain');
     res.setHeader('Content-Disposition', 'attachment; filename="captions.txt"');
     res.send(map.get(videoID));
     return null
-  }
+  } 
   
   getYouTubeCaption(videoID, lang)
     .then((captions) => {
